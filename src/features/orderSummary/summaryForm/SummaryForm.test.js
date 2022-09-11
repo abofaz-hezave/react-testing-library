@@ -1,4 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import SummaryForm from './index';
 
 test('initial conditions', () => {
@@ -15,7 +16,7 @@ test('initial conditions', () => {
   expect(confirmButton).toBeDisabled();
 });
 
-test('checkbox disabling and enabling the button', () => {
+test('checkbox disabling and enabling the button', async () => {
   render(<SummaryForm />);
   const checkBox = screen.getByRole('checkbox', {
     name: /terms and conditions/i,
@@ -24,9 +25,9 @@ test('checkbox disabling and enabling the button', () => {
     name: /confirm order/i,
   });
 
-  fireEvent.click(checkBox);
+  await userEvent.click(checkBox);
   expect(confirmButton).toBeEnabled();
 
-  fireEvent.click(checkBox);
+  await userEvent.click(checkBox);
   expect(confirmButton).toBeDisabled();
 });
