@@ -31,3 +31,24 @@ test('checkbox disabling and enabling the button', async () => {
   await userEvent.click(checkBox);
   expect(confirmButton).toBeDisabled();
 });
+
+test('popover visibility with hovering', async () => {
+  render(<SummaryForm />);
+  const firstNullPopover = screen.queryByText(
+    /no ice cream will actually be delivered/i
+  );
+  expect(firstNullPopover).not.toBeInTheDocument();
+
+  const termsAndConditions = screen.getByText(/terms and conditions/i);
+  await userEvent.hover(termsAndConditions);
+
+  const popover = screen.getByText(/no ice cream will actually be delivered/i);
+  expect(popover).toBeInTheDocument();
+
+  await userEvent.unhover(termsAndConditions);
+
+  const secondNullPopover = screen.queryByText(
+    /no ice cream will actually be delivered/i
+  );
+  expect(secondNullPopover).not.toBeInTheDocument();
+});
