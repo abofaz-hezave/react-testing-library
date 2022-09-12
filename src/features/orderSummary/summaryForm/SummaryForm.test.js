@@ -1,4 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SummaryForm from './index';
 
@@ -47,8 +51,7 @@ test('popover visibility with hovering', async () => {
 
   await userEvent.unhover(termsAndConditions);
 
-  const secondNullPopover = screen.queryByText(
-    /no ice cream will actually be delivered/i
+  await waitForElementToBeRemoved(() =>
+    screen.queryByText(/no ice cream will actually be delivered/i)
   );
-  expect(secondNullPopover).not.toBeInTheDocument();
 });
