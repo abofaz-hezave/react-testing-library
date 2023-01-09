@@ -1,5 +1,6 @@
 import Row from 'react-bootstrap/Row';
 import ScoopOption from './ScoopOption';
+import ToppingOption from './ToppingOption';
 import { OptionType } from '../types';
 import { useFetchOptionsQuery } from '../optionsSlice';
 
@@ -8,7 +9,7 @@ interface OptionsProps {
 }
 
 function Options({ optionType }: OptionsProps): JSX.Element {
-  const ItemComponent = optionType === 'scoops' ? ScoopOption : ScoopOption;
+  const ItemComponent = optionType === 'scoops' ? ScoopOption : ToppingOption;
   const { data = [] } = useFetchOptionsQuery(optionType);
 
   return (
