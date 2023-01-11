@@ -3,6 +3,7 @@ import ScoopOption from './ScoopOption';
 import ToppingOption from './ToppingOption';
 import { OptionType } from '../types';
 import { useFetchOptionsQuery } from '../optionsSlice';
+import AlertBanner from '../../common/AlertBanner';
 
 interface OptionsProps {
   optionType: OptionType;
@@ -10,7 +11,9 @@ interface OptionsProps {
 
 function Options({ optionType }: OptionsProps): JSX.Element {
   const ItemComponent = optionType === 'scoops' ? ScoopOption : ToppingOption;
-  const { data = [] } = useFetchOptionsQuery(optionType);
+  const { data = [], error } = useFetchOptionsQuery(optionType);
+
+  if (error) return <AlertBanner />;
 
   return (
     <Row>

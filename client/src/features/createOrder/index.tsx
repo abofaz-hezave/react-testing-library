@@ -1,7 +1,12 @@
 import Options from './options';
 
 function CreateOrder() {
-  return <Options optionType="scoops" />;
+  return (
+    <div>
+      <Options optionType="scoops" />
+      <Options optionType="toppings" />
+    </div>
+  );
 }
 
 export default CreateOrder;
