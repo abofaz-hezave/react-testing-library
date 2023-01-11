@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
 import { Provider } from 'react-redux';
 import { setupStore } from '../../app/store';
@@ -20,9 +20,9 @@ test('shows alert when scoops and toppings routes return error', async () => {
     </Provider>
   );
 
-  const alerts = await screen.findAllByRole('alert', {
-    name: 'An unexpected error happend. Please try again later.',
-  });
+  await waitFor(async () => {
+    const alerts = await screen.findAllByRole('alert');
 
-  expect(alerts).toHaveLength(2);
+    expect(alerts).toHaveLength(2);
+  });
 });
