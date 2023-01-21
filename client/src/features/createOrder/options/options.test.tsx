@@ -1,6 +1,9 @@
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { renderWithProviders } from '../../../utils/testUtils';
 import Options from './index';
+import { Provider } from 'react-redux';
+import { setupStore } from '../../../app/store';
 
 test('displays image for each scoops item from the server', async () => {
   renderWithProviders(<Options optionType="scoops" />);
@@ -24,4 +27,30 @@ test('displays image for each toppings item from the server', async () => {
 
   const altTexts = toppingImages.map((element) => element.alt);
   expect(altTexts).toEqual(['M&Ms topping', 'Hot fudge topping']);
+});
+
+test('update scoop subtotal when scoops change', async () => {
+  render(
+    <Provider store={setupStore()}>
+      <Options optionType="scoops" />
+    </Provider>
+  );
+
+  const scoopsSubtotal = screen.getByText('Scoops total: $', { exact: false });
+
+  expect(scoopsSubtotal).toHaveTextContent('0.00');
+
+  const vanillaInput = await screen.findByRole('spinButton', {
+    name: 'Vanilla',
+  });
+  userEvent.clear(vanillaInput);
+  userEvent.type(vanillaInput, '1');
+  expect(scoopsSubtotal).toHaveTextContent('2.00');
+
+  const chocolateInput = await screen.findByRole('spinButton', {
+    name: 'Chocolate',
+  });
+  userEvent.clear(chocolateInput);
+  userEvent.type(chocolateInput, '2');
+  expect(scoopsSubtotal).toHaveTextContent('6.00');
 });
