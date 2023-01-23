@@ -1,9 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithProviders } from '../../../utils/testUtils';
 import Options from './index';
-import { Provider } from 'react-redux';
-import { setupStore } from '../../../app/store';
 
 test('displays image for each scoops item from the server', async () => {
   renderWithProviders(<Options optionType="scoops" />);
@@ -30,10 +28,8 @@ test('displays image for each toppings item from the server', async () => {
 });
 
 test('update scoop subtotal when scoops change', async () => {
-  render(
-    <Provider store={setupStore()}>
-      <Options optionType="scoops" />
-    </Provider>
+  renderWithProviders(
+    <Options optionType="scoops" />
   );
 
   const scoopsSubtotal = screen.getByText('Scoops total: $', { exact: false });

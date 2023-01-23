@@ -1,9 +1,8 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
-import { Provider } from 'react-redux';
-import { setupStore } from '../../app/store';
 import CreateOrder from './index';
 import { server } from '../../mocks/server';
+import { renderWithProviders } from '../../utils/testUtils';
 
 test('shows alert when scoops and toppings routes return error', async () => {
   server.resetHandlers(
@@ -14,10 +13,8 @@ test('shows alert when scoops and toppings routes return error', async () => {
       res(ctx.status(500))
     )
   );
-  render(
-    <Provider store={setupStore()}>
-      <CreateOrder />
-    </Provider>
+  renderWithProviders(
+    <CreateOrder />
   );
 
   await waitFor(async () => {
