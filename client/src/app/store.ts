@@ -5,10 +5,11 @@ import {
   combineReducers,
   PreloadedState,
 } from '@reduxjs/toolkit';
-import { optionsSlice } from '../features/createOrder/optionsSlice';
+import OptionsSlice, { optionsApi } from '../features/createOrder/optionsSlice';
 
 const rootReducer = combineReducers({
-  [optionsSlice.reducerPath]: optionsSlice.reducer,
+  options: OptionsSlice,
+  [optionsApi.reducerPath]: optionsApi.reducer,
 });
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {

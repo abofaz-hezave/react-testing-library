@@ -1,8 +1,33 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { OptionType, OptionItem } from './types';
+import { UpdateOptionsCountPayload } from './types';
 
-export const optionsSlice = createApi({
-  reducerPath: 'optionsSlice',
+const initialState = {
+  scoops: new Map<string, number>(),
+  toppings: new Map<string, number>(),
+};
+
+
+
+const optionsSlice = createSlice({
+  name: 'options',
+  initialState,
+  reducers: {
+    updateOptionsCount: (
+      state,
+      action: PayloadAction<UpdateOptionsCountPayload>
+    ) => {
+      state[action.payload.optionType].set(
+        action.payload.itemName,
+        action.payload.newItemCount
+      );
+    },
+  },
+});
+
+export const optionsApi = createApi({
+  reducerPath: 'optionsApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:3030',
     prepareHeaders(headers) {
@@ -20,4 +45,6 @@ export const optionsSlice = createApi({
   },
 });
 
-export const { useFetchOptionsQuery } = optionsSlice;
+export default optionsSlice.reducer;
+export const { updateOptionsCount } = optionsSlice.actions;
+export const { useFetchOptionsQuery } = optionsApi;
