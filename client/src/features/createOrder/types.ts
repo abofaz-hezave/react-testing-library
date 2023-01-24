@@ -11,3 +11,7 @@ export interface UpdateOptionsCountPayload {
   optionType: OptionType;
 }
 
+export interface ItemComponentProps extends OptionItem {
+  updateOptionsCount(itemName: string, newItemCount: number): { payload: UpdateOptionsCountPayload; type: string; }
+
+}
