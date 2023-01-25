@@ -3,9 +3,14 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { OptionType, OptionItem } from './types';
 import { UpdateOptionsCountPayload } from './types';
 
-const initialState = {
-  scoops: new Map<string, number>(),
-  toppings: new Map<string, number>(),
+interface InitialState {
+  scoops: { [index: string]: number },
+  toppings: { [index: string]: number },
+}
+
+const initialState: InitialState = {
+  scoops: {},
+  toppings: {},
 };
 
 
@@ -18,10 +23,8 @@ const optionsSlice = createSlice({
       state,
       action: PayloadAction<UpdateOptionsCountPayload>
     ) => {
-      state[action.payload.optionType].set(
-        action.payload.itemName,
-        action.payload.newItemCount
-      );
+      state[action.payload.optionType][action.payload.itemName] = action.payload.newItemCount
+
     },
   },
 });

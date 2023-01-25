@@ -1,20 +1,19 @@
 import Row from 'react-bootstrap/Row';
 import ScoopOption from './ScoopOption';
 import ToppingOption from './ToppingOption';
-import { OptionType } from '../types';
+import { OptionsProps } from '../types';
 import { useFetchOptionsQuery, updateOptionsCount } from '../optionsSlice';
 import AlertBanner from '../../common/AlertBanner';
 import { ItemPrices } from "../../../constants";
 import { useAppDispatch } from "../../../app/hooks";
+import useOptions from "./useOptions";
 
-interface OptionsProps {
-  optionType: OptionType;
-}
+
 
 function Options({ optionType }: OptionsProps): JSX.Element {
+  const { title, calculation } = useOptions({ optionType })
   const dispatch = useAppDispatch()
   const ItemComponent = optionType === 'scoops' ? ScoopOption : ToppingOption;
-  const title = optionType[0].toUpperCase() + optionType.slice(1).toLocaleLowerCase()
   const { data = [], error } = useFetchOptionsQuery(optionType);
 
   if (error) return <AlertBanner />;
@@ -23,6 +22,7 @@ function Options({ optionType }: OptionsProps): JSX.Element {
     <>
       <h2>{title}</h2>
       <p>{ItemPrices[optionType]} each</p>
+      <p>{title} total: {calculation}</p>
       <Row>
         {data.map((item) => (
           <ItemComponent

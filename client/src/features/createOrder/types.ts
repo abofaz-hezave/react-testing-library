@@ -1,5 +1,9 @@
 export type OptionType = 'scoops' | 'toppings';
 
+export interface OptionsProps {
+  optionType: OptionType;
+}
+
 export interface OptionItem {
   name: string;
   imagePath: string;
