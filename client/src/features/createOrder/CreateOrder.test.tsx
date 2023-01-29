@@ -40,10 +40,10 @@ describe("grand total", () => {
     await user.type(vanillaInput, "2");
     expect(grandTotal).toHaveTextContent("4.00");
 
-    const cherriesCheckbox = await screen.findByRole("checkbox", {
-      name: "Cherries",
+    const firstCheckbox = await screen.findByRole("checkbox", {
+      name: "M&Ms",
     });
-    await user.click(cherriesCheckbox);
+    await user.click(firstCheckbox);
     expect(grandTotal).toHaveTextContent("5.50");
   });
 
@@ -52,10 +52,10 @@ describe("grand total", () => {
     renderWithProviders(<CreateOrder />);
     const grandTotal = screen.getByRole("heading", { name: /Grand total: \$/ });
 
-    const cherriesCheckbox = await screen.findByRole("checkbox", {
-      name: "Cherries",
+    const firstCheckbox = await screen.findByRole("checkbox", {
+      name: "M&Ms",
     });
-    await user.click(cherriesCheckbox);
+    await user.click(firstCheckbox);
     expect(grandTotal).toHaveTextContent("1.50");
 
     const vanillaInput = await screen.findByRole("spinbutton", {
@@ -70,10 +70,10 @@ describe("grand total", () => {
     const user = userEvent.setup();
     renderWithProviders(<CreateOrder />);
 
-    const cherriesCheckbox = await screen.findByRole("checkbox", {
-      name: "Cherries",
+    const firstCheckbox = await screen.findByRole("checkbox", {
+      name: "M&Ms",
     });
-    await user.click(cherriesCheckbox);
+    await user.click(firstCheckbox);
 
     const vanillaInput = await screen.findByRole("spinbutton", {
       name: "Vanilla",
@@ -87,7 +87,7 @@ describe("grand total", () => {
     const grandTotal = screen.getByRole("heading", { name: /Grand total: \$/ });
     expect(grandTotal).toHaveTextContent("3.50");
 
-    await user.click(cherriesCheckbox);
+    await user.click(firstCheckbox);
     expect(grandTotal).toHaveTextContent("2.00");
   });
 });
