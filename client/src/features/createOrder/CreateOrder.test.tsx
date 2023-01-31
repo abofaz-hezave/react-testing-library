@@ -1,11 +1,12 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from "./App";
+import CreateOrder from "./index";
+import { renderWithProviders } from '../../utils/testUtils';
 
 test('all order phases for the happy path', async () => {
   const user = userEvent.setup();
 
-  const { unmount } = render(<App />);
+  const { unmount } = renderWithProviders(<CreateOrder />);
 
   // add ice cream scoops and toppings
   const firstInput = await screen.findByRole("spinbutton", {
