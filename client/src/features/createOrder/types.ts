@@ -1,3 +1,7 @@
+export type OrderPhases = 'inProgress' | 'review' | 'completed';
+export type SetOrderPhase = React.Dispatch<React.SetStateAction<OrderPhases>>
+
+
 export type OptionType = 'scoops' | 'toppings';
 
 export interface OptionsProps {
@@ -17,5 +21,4 @@ export interface UpdateOptionsCountPayload {
 
 export interface ItemComponentProps extends OptionItem {
   updateOptionsCount(itemName: string, newItemCount: number): { payload: UpdateOptionsCountPayload; type: string; }
-
 }
