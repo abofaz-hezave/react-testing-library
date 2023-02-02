@@ -1,13 +1,13 @@
 import {
-  render,
   screen,
   waitForElementToBeRemoved,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SummaryForm from './index';
+import { renderWithProviders } from '../../../utils/testUtils';
 
 test('initial conditions', () => {
-  render(<SummaryForm />);
+  renderWithProviders(<SummaryForm />);
   const checkBox = screen.getByRole('checkbox', {
     name: /terms and conditions/i,
   });
@@ -21,7 +21,7 @@ test('initial conditions', () => {
 });
 
 test('checkbox disabling and enabling the button', async () => {
-  render(<SummaryForm />);
+  renderWithProviders(<SummaryForm />);
   const checkBox = screen.getByRole('checkbox', {
     name: /terms and conditions/i,
   });
@@ -37,7 +37,7 @@ test('checkbox disabling and enabling the button', async () => {
 });
 
 test('popover visibility with hovering', async () => {
-  render(<SummaryForm />);
+  renderWithProviders(<SummaryForm />);
   const firstNullPopover = screen.queryByText(
     /no ice cream will actually be delivered/i
   );

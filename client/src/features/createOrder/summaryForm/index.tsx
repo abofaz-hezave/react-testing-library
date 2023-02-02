@@ -5,9 +5,9 @@ import Popover from 'react-bootstrap/Popover';
 import useSummaryForm from './useSummaryForm';
 
 function SummaryForm() {
-  const { isTermsChecked, setIsTermsChecked } = useSummaryForm();
+  const { isTermsChecked, setIsTermsChecked, onSubmitSummary } = useSummaryForm();
   return (
-    <Form>
+    <Form onSubmit={onSubmitSummary}>
       <Form.Group controlId="terms-and-conditions">
         <Form.Check
           type="checkbox"

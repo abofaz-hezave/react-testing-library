@@ -43,7 +43,7 @@ test('all order phases for the happy path', async () => {
   // check summary option items
   expect(screen.getByText("1 Vanilla")).toBeInTheDocument();
   expect(screen.getByText("2 Chocolate")).toBeInTheDocument();
-  expect(screen.getByText("Cherries")).toBeInTheDocument();
+  expect(screen.getByText("M&Ms")).toBeInTheDocument();
 
   // accept terms and click button
   const tcCheckbox = screen.getByRole("checkbox", {
