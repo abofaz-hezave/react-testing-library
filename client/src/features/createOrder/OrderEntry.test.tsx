@@ -15,7 +15,7 @@ test('shows alert when scoops and toppings routes return error', async () => {
     )
   );
   renderWithProviders(
-    <OrderEntry setOrderPhase={jest.fn()} />
+    <OrderEntry />
   );
 
   await waitFor(async () => {
@@ -29,7 +29,7 @@ describe("grand total", () => {
   test("grand total updates properly if scoop is added first", async () => {
     const user = userEvent.setup();
 
-    renderWithProviders(<OrderEntry setOrderPhase={jest.fn()} />);
+    renderWithProviders(<OrderEntry />);
     const grandTotal = screen.getByRole("heading", { name: /Grand total: \$/ });
     expect(grandTotal).toHaveTextContent("0.00");
 
@@ -49,7 +49,7 @@ describe("grand total", () => {
 
   test("grand total updates properly if topping is added first", async () => {
     const user = userEvent.setup();
-    renderWithProviders(<OrderEntry setOrderPhase={jest.fn()} />);
+    renderWithProviders(<OrderEntry />);
     const grandTotal = screen.getByRole("heading", { name: /Grand total: \$/ });
 
     const firstCheckbox = await screen.findByRole("checkbox", {
@@ -68,7 +68,7 @@ describe("grand total", () => {
 
   test("grand total updates properly if item is removed", async () => {
     const user = userEvent.setup();
-    renderWithProviders(<OrderEntry setOrderPhase={jest.fn()} />);
+    renderWithProviders(<OrderEntry />);
 
     const firstCheckbox = await screen.findByRole("checkbox", {
       name: "M&Ms",

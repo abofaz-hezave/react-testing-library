@@ -2,8 +2,11 @@ import { useMemo } from 'react';
 import { useAppSelector } from "../../app/hooks";
 import { ItemPrices } from "../../constants";
 import { formatCurrency } from "../../utils/commonUtils";
+import { useAppDispatch } from "../../app/hooks";
+import { updateOrderPhase } from "./optionsSlice";
 
 function useOrderEntry() {
+  const dispatch = useAppDispatch()
   const { scoops, toppings } = useAppSelector((state) => state.options)
 
 
@@ -15,7 +18,11 @@ function useOrderEntry() {
     return formatCurrency(grandTotal)
   }, [scoops, toppings])
 
-  return { scoops, grandTotalCalculation };
+  const onSubmitOrder = () => {
+    dispatch(updateOrderPhase("review"))
+  }
+
+  return { scoops, grandTotalCalculation, onSubmitOrder };
 }
 
 export default useOrderEntry;

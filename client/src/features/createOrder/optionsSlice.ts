@@ -1,19 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { OptionType, OptionItem } from './types';
-import { UpdateOptionsCountPayload } from './types';
+import { InitialReduxState, UpdateOptionsCountPayload, OrderPhases } from './types';
 
-interface InitialState {
-  scoops: { [index: string]: number },
-  toppings: { [index: string]: number },
-}
-
-const initialState: InitialState = {
+const initialState: InitialReduxState = {
+  orderPhase: 'inProgress',
   scoops: {},
   toppings: {},
 };
-
-
 
 const optionsSlice = createSlice({
   name: 'options',
@@ -26,6 +20,8 @@ const optionsSlice = createSlice({
       state[action.payload.optionType][action.payload.itemName] = action.payload.newItemCount
 
     },
+    updateOrderPhase: (state, action: PayloadAction<OrderPhases>
+    ) => { state.orderPhase = action.payload },
   },
 });
 
@@ -40,14 +36,15 @@ export const optionsApi = createApi({
   endpoints(builder) {
     return {
       fetchOptions: builder.query<OptionItem[], OptionType>({
-        query(optionType) {
-          return `/${optionType}`;
-        },
+        query: (optionType) => ({
+          url: `/${optionType}`,
+        })
       }),
+
     };
   },
 });
 
 export default optionsSlice.reducer;
-export const { updateOptionsCount } = optionsSlice.actions;
+export const { updateOptionsCount, updateOrderPhase } = optionsSlice.actions;
 export const { useFetchOptionsQuery } = optionsApi;

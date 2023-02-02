@@ -1,12 +1,12 @@
 import OrderEntry from './OrderEntry';
 import OrderSummary from './OrderSummary';
-import useCreateOrder from "./useCreateOrder";
+import { useAppSelector } from "../../app/hooks";
 
 function CreateOrder(): JSX.Element {
-  const { orderPhase, setOrderPhase } = useCreateOrder()
+  const orderPhase = useAppSelector((state) => state.options.orderPhase)
 
-  if (orderPhase === 'review') return <OrderSummary setOrderPhase={setOrderPhase} />
-  return <OrderEntry setOrderPhase={setOrderPhase} />
+  if (orderPhase === 'review') return <OrderSummary />
+  return <OrderEntry />
 
 }
 

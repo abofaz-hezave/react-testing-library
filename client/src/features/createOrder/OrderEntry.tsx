@@ -1,10 +1,9 @@
 import Button from "react-bootstrap/Button";
-import { SetOrderPhase } from "./types";
 import Options from './options';
 import useOrderEntry from "./useOrderEntry";
 
-function OrderEntry({ setOrderPhase }: { setOrderPhase: SetOrderPhase }): JSX.Element {
-  const { scoops, grandTotalCalculation } = useOrderEntry()
+function OrderEntry(): JSX.Element {
+  const { scoops, grandTotalCalculation, onSubmitOrder } = useOrderEntry()
   return (
     <div>
       <h1>Design Your Sundae!</h1>
@@ -14,7 +13,7 @@ function OrderEntry({ setOrderPhase }: { setOrderPhase: SetOrderPhase }): JSX.El
       <Options optionType="toppings" />
       <Button
         disabled={Object.keys(scoops).length === 0}
-        onClick={() => setOrderPhase("review")}
+        onClick={onSubmitOrder}
         className='my-4'
       >
         Order Sundae!

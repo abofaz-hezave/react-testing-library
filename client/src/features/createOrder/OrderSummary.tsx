@@ -1,7 +1,6 @@
-import { SetOrderPhase } from "./types";
 import SummaryForm from './summaryForm';
 
-function OrderSummary(props: { setOrderPhase: SetOrderPhase }): JSX.Element {
+function OrderSummary(): JSX.Element {
   return <SummaryForm />;
 }
 
