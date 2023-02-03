@@ -22,6 +22,7 @@ const optionsSlice = createSlice({
     },
     updateOrderPhase: (state, action: PayloadAction<OrderPhases>
     ) => { state.orderPhase = action.payload },
+    resetOrder: () => initialState
   },
 });
 
@@ -40,11 +41,16 @@ export const optionsApi = createApi({
           url: `/${optionType}`,
         })
       }),
-
+      submitOrder: builder.mutation<{ orderNumber: number }, void>({
+        query: () => ({
+          url: '/order',
+          method: 'POST'
+        })
+      })
     };
   },
 });
 
 export default optionsSlice.reducer;
-export const { updateOptionsCount, updateOrderPhase } = optionsSlice.actions;
-export const { useFetchOptionsQuery } = optionsApi;
+export const { updateOptionsCount, updateOrderPhase, resetOrder } = optionsSlice.actions;
+export const { useFetchOptionsQuery, useSubmitOrderMutation } = optionsApi;
