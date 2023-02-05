@@ -1,16 +1,9 @@
-import { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import AlertBanner from "../common/AlertBanner";
-import { useSubmitOrderMutation, resetOrder } from "./optionsSlice";
-import { useAppDispatch } from "../../app/hooks";
+import useOrderConfirmation from "./useOrderConfirmation";
 
 function OrderConfirmation(): JSX.Element {
-  const dispatch = useAppDispatch()
-  const [submitOrder, result] = useSubmitOrderMutation()
-
-  useEffect(() => {
-    submitOrder()
-  }, []);
+  const { result, onResetOrder } = useOrderConfirmation()
 
   if (result.isLoading) return <div>Loading</div>
 
@@ -20,11 +13,11 @@ function OrderConfirmation(): JSX.Element {
         : <>
           <h1>Thank You!</h1>
           <p>Your order number is {result.data?.orderNumber}</p>
-          <p >
+          <p>
             as per our terms and conditions, nothing will happen now
           </p>
         </>}
-      <Button onClick={() => dispatch(resetOrder())}>Create new order</Button>
+      <Button onClick={onResetOrder}>Create new order</Button>
     </div>
   );
 
