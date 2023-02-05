@@ -85,3 +85,22 @@ test('all order phases for the happy path', async () => {
 
   unmount();
 })
+
+test('Not displaying toppings header on summary page if no topping has been selected', async () => {
+  const user = userEvent.setup();
+  renderWithProviders(<CreateOrder />)
+
+  const firstInput = await screen.findByRole('spinbutton', { name: 'Vanilla' })
+  await user.clear(firstInput)
+  await user.type(firstInput, '2')
+
+  const orderSummaryButton = screen.getByRole('button', { name: /order sundae/i })
+  await user.click(orderSummaryButton)
+
+  const scoopsHeading = screen.getByRole('heading', { name: 'Scoops: $4.00' })
+  expect(scoopsHeading).toBeInTheDocument()
+
+  const toppingsHeading = screen.queryByRole('heading', { name: /toppings/i })
+  expect(toppingsHeading).not.toBeInTheDocument()
+
+})
