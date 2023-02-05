@@ -17,8 +17,12 @@ function OrderSummary(): JSX.Element {
           {value} {key}
         </li>
       ))}</ul>
-      <h2>Toppings: {toppingTotal}</h2>
-      <ul>{Object.keys(toppings).map((key) => <li key={key}>{key}</li>)}</ul>
+      {Object.keys(toppings).length > 0 ? (
+        <>
+          <h2>Toppings: {toppingTotal}</h2>
+          <ul>{Object.keys(toppings).map((key) => <li key={key}>{key}</li>)}</ul>
+        </>
+      ) : null}
       <SummaryForm />
     </div>);
 }
