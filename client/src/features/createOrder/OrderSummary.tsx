@@ -1,6 +1,7 @@
 import SummaryForm from './summaryForm';
 import useOptions from "./options/useOptions";
 import { useAppSelector } from "../../app/hooks";
+import { formatCurrency } from "../../utils/commonUtils";
 
 function OrderSummary(): JSX.Element {
   const { calculation: scoopTotal } = useOptions({ optionType: 'scoops' })
@@ -11,15 +12,15 @@ function OrderSummary(): JSX.Element {
   return (
     <div>
       <h1>Order Summary</h1>
-      <h2>Scoops: {scoopTotal}</h2>
+      <h2>Scoops: {formatCurrency(scoopTotal)}</h2>
       <ul>{Object.entries(scoops).map(([key, value]) => (
         <li key={key}>
           {value} {key}
         </li>
       ))}</ul>
-      {Object.keys(toppings).length > 0 ? (
+      {toppingTotal > 0 ? (
         <>
-          <h2>Toppings: {toppingTotal}</h2>
+          <h2>Toppings: {formatCurrency(toppingTotal)}</h2>
           <ul>{Object.keys(toppings).map((key) => <li key={key}>{key}</li>)}</ul>
         </>
       ) : null}

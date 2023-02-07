@@ -2,9 +2,8 @@ import { useMemo } from 'react';
 import { useAppSelector } from "../../../app/hooks";
 import { OptionsProps } from '../types';
 import { ItemPrices } from "../../../constants";
-import { formatCurrency } from "../../../utils/commonUtils";
 
-function Options({ optionType }: OptionsProps) {
+function useOptions({ optionType }: OptionsProps) {
   const selectedOptions = useAppSelector((state) => state.options[optionType])
   const title = optionType[0].toUpperCase() + optionType.slice(1).toLocaleLowerCase()
 
@@ -12,10 +11,8 @@ function Options({ optionType }: OptionsProps) {
     const countsArray = Object.values(selectedOptions);
     const totalCount = countsArray.reduce((total, value) => total + value, 0);
 
-    return formatCurrency(totalCount * ItemPrices[optionType])
+    return (totalCount * ItemPrices[optionType])
   }, [selectedOptions, optionType]);
-
-
 
   return {
     title,
@@ -23,4 +20,4 @@ function Options({ optionType }: OptionsProps) {
   };
 }
 
-export default Options;
+export default useOptions;

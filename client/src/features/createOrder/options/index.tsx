@@ -6,9 +6,8 @@ import { useFetchOptionsQuery, updateOptionsCount } from '../optionsSlice';
 import AlertBanner from '../../common/AlertBanner';
 import { ItemPrices } from "../../../constants";
 import { useAppDispatch } from "../../../app/hooks";
+import { formatCurrency } from "../../../utils/commonUtils";
 import useOptions from "./useOptions";
-
-
 
 function Options({ optionType }: OptionsProps): JSX.Element {
   const { title, calculation } = useOptions({ optionType })
@@ -22,7 +21,7 @@ function Options({ optionType }: OptionsProps): JSX.Element {
     <>
       <h2>{title}</h2>
       <p>{ItemPrices[optionType]} each</p>
-      <p>{title} total: {calculation}</p>
+      <p>{title} total: {formatCurrency(calculation)}</p>
       <Row>
         {data.map((item) => (
           <ItemComponent
