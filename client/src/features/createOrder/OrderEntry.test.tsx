@@ -25,6 +25,24 @@ test('shows alert when scoops and toppings routes return error', async () => {
   });
 });
 
+test('order button should be disabled if no scoops has been selected', async () => {
+  const user = userEvent.setup();
+
+  renderWithProviders(<OrderEntry />)
+  const orderButton = screen.getByRole('button', { name: /order sundae/i })
+  expect(orderButton).toBeDisabled()
+
+  const firstInput = await screen.findByRole('spinbutton', { name: 'Vanilla' })
+  await user.clear(firstInput)
+  await user.type(firstInput, '1')
+  expect(orderButton).toBeEnabled()
+
+  await user.clear(firstInput)
+  await user.type(firstInput, '0')
+  expect(orderButton).toBeDisabled()
+
+})
+
 describe("grand total", () => {
   test("grand total updates properly if scoop is added first", async () => {
     const user = userEvent.setup();
