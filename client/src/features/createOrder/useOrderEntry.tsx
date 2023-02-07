@@ -22,7 +22,7 @@ function useOrderEntry() {
     dispatch(updateOrderPhase("review"))
   }
 
-  return { scoops, grandTotalCalculation, onSubmitOrder };
+  return { grandTotalCalculation, onSubmitOrder };
 }
 
 export default useOrderEntry;

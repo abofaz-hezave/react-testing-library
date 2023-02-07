@@ -1,9 +1,12 @@
 import Button from "react-bootstrap/Button";
 import Options from './options';
+import useOptions from "./options/useOptions";
 import useOrderEntry from "./useOrderEntry";
 
 function OrderEntry(): JSX.Element {
-  const { scoops, grandTotalCalculation, onSubmitOrder } = useOrderEntry()
+  const { grandTotalCalculation, onSubmitOrder } = useOrderEntry()
+  const { calculation: scoopTotal } = useOptions({ optionType: 'scoops' })
+
   return (
     <div>
       <h1>Design Your Sundae!</h1>
@@ -12,7 +15,7 @@ function OrderEntry(): JSX.Element {
       <Options optionType="scoops" />
       <Options optionType="toppings" />
       <Button
-        disabled={Object.keys(scoops).length === 0}
+        disabled={scoopTotal === 0}
         onClick={onSubmitOrder}
         className='my-4'
       >
