@@ -2,8 +2,11 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { ItemComponentProps } from '../types';
+import useScoopOption from "./useScoopOption";
 
 function ScoopOption({ name, imagePath, updateOptionsCount }: ItemComponentProps) {
+  const { isValid, onChangeScoop } = useScoopOption({ name, updateOptionsCount })
+
   return (
     <Col xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }}>
       <img
@@ -23,7 +26,8 @@ function ScoopOption({ name, imagePath, updateOptionsCount }: ItemComponentProps
           <Form.Control
             type="number"
             defaultValue={0}
-            onChange={(event) => updateOptionsCount(name, +event.target.value)}
+            onChange={onChangeScoop}
+            isInvalid={!isValid}
           />
         </Col>
       </Form.Group>
